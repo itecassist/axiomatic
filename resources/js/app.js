@@ -1,6 +1,6 @@
 import { createApp, createSSRApp, h } from 'vue'
 import { createInertiaApp } from '@inertiajs/vue3'
-import { ZiggyVue } from '../../vendor/tightenco/ziggy/src/js'
+import { ZiggyVue } from 'ziggy-js'
 import { createPinia } from 'pinia'
 
 createInertiaApp({

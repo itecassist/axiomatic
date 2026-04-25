@@ -1,19 +1,30 @@
-# Builder stage - handles both Composer and npm
-FROM php:8.3-alpine AS builder
+FROM php:8.3-fpm
+
 WORKDIR /app
 
 # Install system dependencies
-RUN apk add --no-cache \
+RUN apt-get update && apt-get install -y \
     curl \
+    git \
+    unzip \
     libpng-dev \
-    libjpeg-turbo-dev \
+    libjpeg-dev \
     libzip-dev \
-    icu-dev \
-    oniguruma-dev \
-    nodejs npm
+    libicu-dev \
+    libonig-dev \
+    default-mysql-client \
+    nodejs \
+    npm \
+    && rm -rf /var/lib/apt/lists/*
+
+# Add Sqlite
+RUN apt-get update && apt-get install -y \
+    sqlite3 \
+    libsqlite3-dev \
+    && docker-php-ext-install pdo_sqlite
 
 # Install PHP extensions
-RUN docker-php-ext-install -j$(nproc) \
+RUN docker-php-ext-install \
     pdo_mysql \
     mbstring \
     bcmath \
@@ -22,58 +33,25 @@ RUN docker-php-ext-install -j$(nproc) \
     gd
 
 # Install Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2.7 /usr/bin/composer /usr/bin/composer
 
-# Copy dependency files
-COPY package*.json composer.json composer.lock ./
-
-# Install dependencies (skip scripts to avoid Laravel bootstrap during build)
-RUN npm ci && composer install --no-dev --optimize-autoloader --no-scripts
-
-# Copy application code
+# Copy app
 COPY . .
 
-# Build assets
-RUN npm run build
+# Install dependencies
+RUN composer install --no-dev --optimize-autoloader --no-scripts
 
-# PHP FPM stage
-FROM php:8.3-fpm-alpine
+# Install frontend + build assets
+RUN npm install && npm run build
 
-# Install system dependencies
-RUN apk add --no-cache \
-    curl \
-    libpng-dev \
-    libjpeg-turbo-dev \
-    libzip-dev \
-    icu-dev \
-    oniguruma-dev \
-    mysql-client
+RUN mkdir -p /app/storage/framework/cache \
+    /app/storage/framework/sessions \
+    /app/storage/framework/views \
+    /app/storage/logs \
+    /app/bootstrap/cache \
+    && chown -R www-data:www-data /app/storage /app/bootstrap/cache \
+    && chmod -R 775 /app/storage /app/bootstrap/cache
 
-# Install PHP extensions
-RUN docker-php-ext-install -j$(nproc) \
-    pdo_mysql \
-    mbstring \
-    bcmath \
-    intl \
-    zip \
-    gd
-
-# Install Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-
-WORKDIR /app
-
-# Copy from builder
-COPY --from=builder /app .
-COPY --chown=www-data:www-data --from=builder /app/vendor ./vendor
-COPY --chown=www-data:www-data --from=builder /app/public ./public
-
-# Ensure storage and cache directories exist with proper permissions
-RUN mkdir -p /app/storage /app/bootstrap/cache && \
-    chown -R www-data:www-data /app/storage /app/bootstrap/cache && \
-    chmod -R 755 /app/storage /app/bootstrap/cache
-
-# Expose port
 EXPOSE 9000
 
 CMD ["php-fpm"]
