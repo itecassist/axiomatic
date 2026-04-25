@@ -35,6 +35,7 @@ No local PHP or MySQL installation is required.
 ### 1. Clone the repository
 
 git clone https://github.com/itecassist/axiomatic.git
+
 cd axiomatic
 
 ### 2. Start the application
@@ -44,6 +45,7 @@ docker compose up --build -d
 ### 3. Install dependencies
 
 docker compose exec app composer install
+
 docker compose exec app npm install
 
 ### 4. Run migrations and seed data
