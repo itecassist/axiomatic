@@ -42,15 +42,17 @@ cd axiomatic
 
 docker compose up --build -d
 
-### 3. Install dependencies
+### 3. Install dependencies & generate key
 
 docker compose exec app composer install
 
 docker compose exec app npm install
 
+docker compose exec app php artisan key:generate --force
+
 ### 4. Run migrations and seed data
 
-docker compose exec app php artisan migrate --seed
+docker compose exec app php artisan migrate --seed --force
 
 ### 5. Build frontend assets
 
