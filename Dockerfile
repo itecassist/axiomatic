@@ -38,8 +38,13 @@ RUN composer install --no-dev --optimize-autoloader --no-scripts
 # Install frontend + build assets
 RUN npm install && npm run build
 
-# Fix permissions
-RUN chown -R www-data:www-data /app/storage /app/bootstrap/cache
+RUN mkdir -p /app/storage/framework/cache \
+    /app/storage/framework/sessions \
+    /app/storage/framework/views \
+    /app/storage/logs \
+    /app/bootstrap/cache \
+    && chown -R www-data:www-data /app/storage /app/bootstrap/cache \
+    && chmod -R 775 /app/storage /app/bootstrap/cache
 
 EXPOSE 9000
 
