@@ -34,51 +34,60 @@ No local PHP or MySQL installation is required.
 
 ### 1. Clone the repository
 
+```bash
 git clone https://github.com/itecassist/axiomatic.git
-
 cd axiomatic
+```
 
 ### 2. Start the application
 
+```bash
 docker compose up --build -d
+```
 
 ### 3. Install dependencies & generate key
 
+```bash
 docker compose exec app composer install
-
 docker compose exec app npm install
-
 docker compose exec app php artisan key:generate --force
+```
 
 ### 4. Run migrations and seed data
 
+```bash
 docker compose exec app php artisan migrate --seed --force
+```
 
 ### 5. Build frontend assets
 
+```bash
 docker compose exec app npm run build
+```
 
 ---
 
 ## Access
 
-- Application: http://localhost
-- Login: http://localhost/login
+- Application: http://localhost  
+- Login: http://localhost/login  
 
 ---
 
 ## Test Users
 
-Role     | Email               | Password
----------|---------------------|---------
-Viewer   | viewer@example.com  | password
-Manager  | manager@example.com | password
+| Role    | Email               | Password |
+|--------|---------------------|----------|
+| Viewer | viewer@example.com  | password |
+| Manager| manager@example.com | password |
 
 ---
 
 ## Running Tests
 
+```bash
 docker compose exec app php artisan test
+```
 
 ---
 
@@ -90,28 +99,32 @@ Vite is used for asset bundling.
 
 Assets are pre-built and served by Laravel:
 
+```bash
 docker compose exec app npm run build
+```
 
 ### Development (optional)
 
 For hot module replacement:
 
+```bash
 docker compose exec app npm run dev
+```
 
 ---
 
 ## Key Features
 
-- Commission notes scoped by company and branch
+- Commission notes scoped by company and branch  
 - Role-based permissions:
-  - View commission notes
-  - Manage commission notes
+  - View commission notes  
+  - Manage commission notes  
 - Business rules:
-  - Authors can edit their own notes
-  - Managers can edit any note
-- Server-side validation and authorization
-- Service-layer architecture
-- Feature and service-level tests
+  - Authors can edit their own notes  
+  - Managers can edit any note  
+- Server-side validation and authorization  
+- Service-layer architecture  
+- Feature and service-level tests  
 
 ---
 
@@ -119,34 +132,34 @@ docker compose exec app npm run dev
 
 This project uses a pragmatic service-layer approach instead of full DDD.
 
-- Controllers handle HTTP concerns only
-- Business logic lives in app/Services
-- Authorization is enforced in the service layer
-- Models remain simple and focused
+- Controllers handle HTTP concerns only  
+- Business logic lives in app/Services  
+- Authorization is enforced in the service layer  
+- Models remain simple and focused  
 
 ---
 
 ## Project Structure
 
 app/
-  Services/        Business logic
-  Models/          Domain models
-  Http/Controllers Thin controllers
+  Services/          Business logic
+  Models/            Domain models
+  Http/Controllers   Thin controllers
 
 resources/js/
-  Pages/           Vue pages
-  Components/      UI components
+  Pages/             Vue pages
+  Components/        UI components
 
 tests/
-  Feature/         Feature tests
-  Unit/            Service tests
+  Feature/           Feature tests
+  Unit/              Service tests
 
 ---
 
 ## Environment Notes
 
-- MySQL runs in Docker
-- SQLite (in-memory) is used for testing
+- MySQL runs in Docker  
+- SQLite (in-memory) is used for testing  
 
 ---
 
@@ -154,15 +167,29 @@ tests/
 
 ### Reset database
 
+```bash
 docker compose exec app php artisan migrate:fresh --seed
+```
 
 ### Rebuild frontend assets
 
+```bash
 docker compose exec app npm run build
+```
 
 ### Check running containers
 
+```bash
 docker compose ps
+```
+
+---
+
+## Design Decisions
+
+- Chose a service-layer approach instead of full DDD to reduce complexity for the scope  
+- Enforced authorization in the service layer for consistency  
+- Used Docker to ensure a reproducible development environment  
 
 ---
 
