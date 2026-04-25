@@ -30,6 +30,20 @@ chmod -R 775 storage bootstrap/cache
 echo "Clearing caches..."
 php artisan optimize:clear || true
 
+echo "Waiting for database..."
+until php -r "
+try {
+  new PDO('mysql:host=${DB_HOST};dbname=${DB_DATABASE}', '${DB_USERNAME}', '${DB_PASSWORD}');
+  exit(0);
+} catch (Exception \$e) {
+  exit(1);
+}
+"; do
+  sleep 2
+done
+
+echo "Database ready"
+
 # Run migrations (safe in dev/test context)
 echo "Running migrations..."
 php artisan migrate --force || true
