@@ -22,7 +22,7 @@ RUN apt-get update && apt-get install -y \
     sqlite3 \
     libsqlite3-dev \
     && docker-php-ext-install pdo_sqlite
-    
+
 # Install PHP extensions
 RUN docker-php-ext-install \
     pdo_mysql \
@@ -53,5 +53,6 @@ RUN mkdir -p /app/storage/framework/cache \
     && chmod -R 775 /app/storage /app/bootstrap/cache
 
 EXPOSE 9000
+ENTRYPOINT ["/docker/entrypoint.sh"]
 
 CMD ["php-fpm"]
