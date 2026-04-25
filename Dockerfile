@@ -17,6 +17,12 @@ RUN apt-get update && apt-get install -y \
     npm \
     && rm -rf /var/lib/apt/lists/*
 
+# Add Sqlite
+RUN apt-get update && apt-get install -y \
+    sqlite3 \
+    libsqlite3-dev \
+    && docker-php-ext-install pdo_sqlite
+    
 # Install PHP extensions
 RUN docker-php-ext-install \
     pdo_mysql \
