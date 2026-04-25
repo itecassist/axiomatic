@@ -53,6 +53,6 @@ RUN mkdir -p /app/storage/framework/cache \
     && chmod -R 775 /app/storage /app/bootstrap/cache
 
 EXPOSE 9000
-ENTRYPOINT ["/docker/entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
 
 CMD ["php-fpm"]
