@@ -33,7 +33,7 @@ COPY --from=composer:2.7 /usr/bin/composer /usr/bin/composer
 COPY . .
 
 # Install dependencies
-RUN composer install --no-dev --optimize-autoloader
+RUN composer install --no-dev --optimize-autoloader --no-scripts
 
 # Install frontend + build assets
 RUN npm install && npm run build
