@@ -17,8 +17,4 @@ class Company extends Model
         return $this->hasMany(Branch::class);
     }
 
-    // public function commission_notes(): HasMany
-    // {
-    //     return $this->hasMany(CommissionNote::class);
-    // }
 }

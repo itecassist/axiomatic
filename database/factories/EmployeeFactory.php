@@ -13,7 +13,8 @@ class EmployeeFactory extends Factory
             'branch_id' => Branch::factory(),
             'first_name' => fake()->firstName(),
             'last_name' => fake()->lastName(),
-            'employee_number' => fake()->unique()->numerify('EMP###')
+            'employee_number' => fake()->unique()->numerify('EMP###'),
+            'avatar' => fake()->imageUrl(200, 200, 'people'),
         ];
     }
 }

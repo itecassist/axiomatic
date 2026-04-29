@@ -21,6 +21,7 @@ export interface Employee {
   last_name: string
   employee_number: string
   employee_display?: string
+  avatar?: string
 }
 
 export interface User {

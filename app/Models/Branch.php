@@ -13,7 +13,7 @@ class Branch extends Model
 
     protected $fillable = [
         'company_id',
-        'name'
+        'name',
     ];
 
     public function company(): BelongsTo
@@ -26,8 +26,8 @@ class Branch extends Model
         return $this->hasMany(Employee::class);
     }
 
-    // public function commission_notes(): HasMany
-    // {
-    //     return $this->hasMany(CommissionNote::class);
-    // }
+    public function commissionNotes(): HasMany
+    {
+        return $this->hasMany(CommissionNote::class);
+    }
 }

@@ -76,10 +76,11 @@ docker compose exec app npm run build
 
 ## Test Users
 
-| Role    | Email               | Password |
-|--------|---------------------|----------|
-| Viewer | viewer@example.com  | password |
-| Manager| manager@example.com | password |
+| Role   | Email                   | Password |
+|--------|-------------------------|----------|
+| Viewer | viewer@axiomatic.co.za  | password |
+| Manager| manager@axiomatic.co.za | password |
+| Admin  | admin@axiomatic.co.za   | password |
 
 ---
 

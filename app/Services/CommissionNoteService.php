@@ -47,6 +47,7 @@ class CommissionNoteService
             'branch_id'   => $data['branch_id'],
             'employee_id' => $data['employee_id'],
             'author_id'   => $user->id,
+            'date'        => $data['date'],
             'description' => $data['description'],
             'amount'      => $data['amount'],
         ]);
@@ -63,6 +64,7 @@ class CommissionNoteService
             'company_id'  => $data['company_id'],
             'branch_id'   => $data['branch_id'],
             'employee_id' => $data['employee_id'],
+            'date'        => $data['date'],
             'description' => $data['description'],
             'amount'      => $data['amount'],
         ]);

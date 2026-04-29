@@ -14,6 +14,7 @@ return new class extends Migration
             $table->foreignId('branch_id')->constrained()->cascadeOnDelete();
             $table->foreignId('employee_id')->constrained()->cascadeOnDelete();
             $table->foreignId('author_id')->constrained('users')->cascadeOnDelete();
+            $table->date('date');
             $table->text('description');
             $table->decimal('amount', 10, 2);
             $table->timestamps();

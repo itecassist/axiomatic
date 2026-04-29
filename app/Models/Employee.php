@@ -17,7 +17,8 @@ class Employee extends Model
         'branch_id',
         'first_name',
         'last_name',
-        'employee_number'
+        'employee_number',
+        'avatar',
     ];
 
     public function branch(): BelongsTo

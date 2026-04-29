@@ -21,6 +21,7 @@ class CommissionNoteFactory extends Factory
             'branch_id'   => $branch->id,
             'employee_id' => $employee->id,
             'author_id'   => User::factory(),
+            'date'        => fake()->dateTimeThisYear()->format('Y-m-d'),
             'description' => fake()->sentence(),
             'amount'      => fake()->randomFloat(2, 10, 5000),
         ];

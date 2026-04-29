@@ -17,7 +17,7 @@ This keeps the codebase simple, predictable, and aligned with the requirements, 
 ### Key Decisions
 
 * **Service layer for business rules**: All domain logic (including authorization rules like author vs manager editing) is enforced server-side in the service.
-* **Middleware for coarse permissions**: Route middleware handles high-level access (`view` vs `manage`), avoiding duplication in controllers.
+* **Middleware for coarse permissions**: Route middleware handles high-level access (`view` vs `manage` vs `admin`), avoiding duplication in controllers.
 * **No heavy DDD abstractions**: Repositories, aggregates, and additional layers were intentionally avoided to reduce complexity for this scope.
 
 ### Production Consideration
@@ -53,11 +53,15 @@ Two permissions were introduced:
 
 * `view commission notes`
 * `manage commission notes`
+* `manage companies`
+* `manage branches`
+* `manage employees`
 
 These are enforced via route middleware:
 
 * Viewing (index, edit): requires `view`
 * Creating (store, create page): requires `manage`
+* Admin (administrator): requires `admin`
 
 ### Business Rule (Service-Level)
 
@@ -102,7 +106,7 @@ Integrity checks are implemented in the service layer.
 Cover:
 
 * Guest access restrictions
-* Permission-based access (view/manage)
+* Permission-based access (view/manage/admin)
 * Create/update flows
 * Authorization enforcement
 
