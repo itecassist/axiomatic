@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import AppLayout from '@/Layouts/AppLayout.vue'
-import Pagination from '@/Components/Pagination.vue'
+import Pagination from '@/components/Pagination.vue'
 import { Link, router, useForm, usePage } from '@inertiajs/vue3'
 import { computed, onBeforeUnmount, ref, watch } from 'vue'
 import { route as ziggyRoute } from 'ziggy-js'

@@ -56,7 +56,7 @@ docker compose exec app php artisan key:generate --force
 ### 4. Run migrations and seed data
 
 ```bash
-docker compose exec app php artisan migrate --seed --force
+docker compose exec app php artisan migrate:fresh --seed --force
 ```
 
 ### 5. Build frontend assets
