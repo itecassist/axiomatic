@@ -46,7 +46,7 @@ function submit() {
     <AppLayout>
         <div class="max-w-xl">
             <div class="flex items-center gap-4 mb-6">
-                <Link :href="route('employees.index')" class="text-blue-600 hover:underline dark:text-blue-400 dark:hover:text-blue-300 text-sm">&larr; Back</Link>
+                <Link :href="route('employees.index')" class="back-link">&larr; Back</Link>
                 <h1 class="text-xl font-bold text-gray-800 dark:text-gray-100">Edit Employee</h1>
             </div>
 
@@ -137,11 +137,11 @@ function submit() {
                     <button
                         type="submit"
                         :disabled="form.processing"
-                        class="bg-blue-600 text-white px-4 py-2 rounded text-sm hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 disabled:opacity-50"
+                        class="btn btn-default"
                     >
                         Save Changes
                     </button>
-                    <Link :href="route('employees.index')" class="px-4 py-2 rounded text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200">
+                    <Link :href="route('employees.index')" class="btn btn-outline">
                         Cancel
                     </Link>
                 </div>

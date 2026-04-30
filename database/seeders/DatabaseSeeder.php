@@ -64,7 +64,7 @@ class DatabaseSeeder extends Seeder
                     $notesData[] = [
                         'branch' => $branch,
                         'employee' => $employee,
-                        'description' => "Commission note for {$employee->employee_number} at {$branch->name}",
+                        'description' => " for {$employee->employee_number} at {$branch->name}",
                         'amount' => rand(1500, 23000),
                         'date' => now()->subDays(rand(0, 365)),
                     ];
@@ -73,12 +73,14 @@ class DatabaseSeeder extends Seeder
         }
 
         foreach ($notesData as $data) {
+            $ref = strtoupper(uniqid());
             $service->create($manager, [
+                'reference' => $ref,
                 'company_id' => $company->id,
                 'branch_id' => $data['branch']->id,
                 'employee_id' => $data['employee']->id,
                 'date' => $data['date'],
-                'description' => $data['description'],
+                'description' => 'Note #'.$ref.' '.$data['description'],
                 'amount' => $data['amount'],
             ]);
         }

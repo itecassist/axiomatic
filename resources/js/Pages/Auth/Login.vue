@@ -63,7 +63,7 @@ function submit() {
                     <input id="remember" v-model="form.remember" type="checkbox" class="rounded" />
                     <label for="remember" class="text-sm text-gray-600">Remember me</label>
                 </div>
-                <Button :disabled="form.processing" class="w-full" type="submit">Sign in</Button>
+                <Button :disabled="form.processing" class="w-full rounded-lg p-2" type="submit">Sign in</Button>
 
             </form>
             </div>

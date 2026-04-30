@@ -22,7 +22,7 @@ function submit() {
     <AppLayout>
         <div class="max-w-xl">
             <div class="flex items-center gap-4 mb-6">
-                <Link :href="route('companies.index')" class="text-blue-600 hover:underline dark:text-blue-400 dark:hover:text-blue-300 text-sm">&larr; Back</Link>
+                <Link :href="route('companies.index')" class="back-link">&larr; Back</Link>
                 <h1 class="text-xl font-bold text-gray-800 dark:text-gray-100">Edit Company</h1>
             </div>
 
@@ -47,7 +47,7 @@ function submit() {
                     >
                         Save Changes
                     </button>
-                    <Link :href="route('companies.index')" class="px-4 py-2 rounded text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200">
+                    <Link :href="route('companies.index')" class="btn btn-outline">
                         Cancel
                     </Link>
                 </div>

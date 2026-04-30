@@ -17,6 +17,7 @@ class CommissionNoteFactory extends Factory
         $employee = Employee::factory()->create(['branch_id' => $branch->id]);
 
         return [
+            'reference'   => strtoupper(uniqid()),
             'company_id'  => $company->id,
             'branch_id'   => $branch->id,
             'employee_id' => $employee->id,

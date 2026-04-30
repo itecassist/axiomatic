@@ -19,6 +19,8 @@ class StoreNoteRequest extends FormRequest
             'employee_id' => ['required', 'integer', 'exists:employees,id'],
             'description' => ['required', 'string', 'max:1000'],
             'amount'      => ['required', 'numeric', 'min:0'],
+            'date'        => ['nullable', 'date'],
+            'reference'   => ['nullable', 'string', 'max:255'],
         ];
     }
 }

@@ -23,7 +23,8 @@ Route::middleware('auth')->group(function () {
     Route::middleware('permission:manage commission notes')->group(function () {
         Route::resource('companies', CompanyController::class)->except('show');
         Route::resource('branches', BranchController::class)->except('show');
-        Route::resource('employees', EmployeeController::class)->except('show');
+        Route::get('/employees/export', [EmployeeController::class, 'export'])->name('employees.export');
+        Route::resource('employees', EmployeeController::class);
     });
 
     Route::middleware('permission:view commission notes')->group(function () {

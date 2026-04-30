@@ -1,5 +1,5 @@
 <?php
 
-test('root redirects to notes index', function () {
-    $this->get('/')->assertRedirect(route('commission-notes.index'));
+test('root redirects to dashboard', function () {
+    $this->get('/')->assertRedirect(route('dashboard'));
 });

@@ -9,12 +9,18 @@ class EmployeeFactory extends Factory
 {
     public function definition(): array
     {
+        $firstName = fake()->firstName();
+        $lastName = fake()->lastName();
+
         return [
             'branch_id' => Branch::factory(),
-            'first_name' => fake()->firstName(),
-            'last_name' => fake()->lastName(),
+            'first_name' => $firstName,
+            'last_name' => $lastName,
             'employee_number' => fake()->unique()->numerify('EMP###'),
-            'avatar' => fake()->imageUrl(200, 200, 'people'),
+            'avatar' => sprintf(
+                'https://ui-avatars.com/api/?name=%s&size=200&background=random&color=ffffff',
+                urlencode("{$firstName} {$lastName}")
+            ),
         ];
     }
 }

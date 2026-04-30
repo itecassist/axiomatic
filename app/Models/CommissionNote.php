@@ -11,10 +11,12 @@ class CommissionNote extends Model
     use HasFactory;
 
     protected $fillable = [
+        'reference',
         'company_id',
         'branch_id',
         'employee_id',
         'author_id',
+        'date',
         'description',
         'amount'
     ];
@@ -22,6 +24,7 @@ class CommissionNote extends Model
     protected function casts(): array
     {
         return [
+            'date' => 'date:Y-m-d',
             'amount' => 'decimal:2',
         ];
     }

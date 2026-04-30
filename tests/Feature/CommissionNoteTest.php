@@ -15,21 +15,16 @@ beforeEach(function () {
     Permission::firstOrCreate(['name' => 'manage commission notes']);
 });
 
-function makeUser(array $permissions = []): User
-{
-    $user = User::factory()->create();
-    foreach ($permissions as $p) {
-        $user->givePermissionTo($p);
-    }
-    return $user;
-}
-
 function makeNoteFor(User $author): array
 {
     $company  = Company::factory()->create();
     $branch   = Branch::factory()->create(['company_id' => $company->id]);
     $employee = Employee::factory()->create(['branch_id' => $branch->id]);
     $note     = CommissionNote::factory()->create([
+        'description' => 'Test Note',
+        'amount'      => 123.45,
+        'date'        => '2024-01-15',
+        'reference'   => 'REF123',
         'author_id'   => $author->id,
         'company_id'  => $company->id,
         'branch_id'   => $branch->id,

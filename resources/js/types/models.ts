@@ -32,10 +32,12 @@ export interface User {
 
 export interface CommissionNote {
   id: number
+  reference: string
   description: string
   amount: string | number
   company: Company
   branch: Branch
+  date: string
   employee: Employee
   author: User
 }

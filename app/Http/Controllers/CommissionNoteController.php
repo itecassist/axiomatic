@@ -21,18 +21,23 @@ class CommissionNoteController extends Controller
     public function index(Request $request): Response
     {
 
-        $filters = $request->only(['company_id', 'branch_id']);
+        $filters = $request->only(['company_id', 'branch_id', 'search', 'amount_min', 'amount_max', 'date_from', 'date_to']);
+        $perPage  = max(5, min(100, (int) $request->input('per_page', 20)));
 
         return Inertia::render('CommissionNotes/Index', [
             'notes'     => $this->service->list(
                 isset($filters['company_id']) ? (int) $filters['company_id'] : null,
                 isset($filters['branch_id'])  ? (int) $filters['branch_id']  : null,
+                isset($filters['search']) && $filters['search'] !== '' ? (string) $filters['search'] : null,
+                isset($filters['amount_min']) && is_numeric($filters['amount_min']) ? (float) $filters['amount_min'] : null,
+                isset($filters['amount_max']) && is_numeric($filters['amount_max']) ? (float) $filters['amount_max'] : null,
+                isset($filters['date_from']) && $filters['date_from'] !== '' ? (string) $filters['date_from'] : null,
+                isset($filters['date_to']) && $filters['date_to'] !== '' ? (string) $filters['date_to'] : null,
+                $perPage,
             ),
             'companies' => Company::orderBy('name')->get(['id', 'name']),
-            'branches'  => Branch::with('employees')->when(
-                $filters['company_id'] ?? null,
-                fn ($q) => $q->where('company_id', (int) $filters['company_id'])
-            )->orderBy('name')->get(['id', 'company_id', 'name']),
+            'branches'  => Branch::orderBy('name')->get(['id', 'company_id', 'name']),
+            'employees' => Employee::orderBy('last_name')->get()->each(fn (Employee $emp) => $emp->append('employee_display')),
             'filters'   => $filters,
             'can'       => [
                 'manage' => $request->user()->can('manage commission notes'),

@@ -21,6 +21,7 @@ const form = useForm({
     branch_id:   props.note.branch_id,
     employee_id: props.note.employee_id,
     description: props.note.description,
+    date       : props.note.date,
     amount:      props.note.amount,
 })
 
@@ -72,6 +73,17 @@ function submit() {
             </div>
 
             <form @submit.prevent="submit" class="bg-white rounded-lg shadow p-6 space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                    <input
+                        type="date"
+                        v-model="form.date"
+                        required
+                        class="w-full border border-gray-300 rounded px-3 py-2 text-sm"
+                    >
+                    </input>
+                    <p v-if="form.errors.date" class="text-red-600 text-xs mt-1">{{ form.errors.date }}</p>
+                </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Company</label>
                     <select
